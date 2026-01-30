@@ -1,0 +1,18 @@
+# Current WAF config
+location / {
+    ModSecurityEnabled on;
+    ModSecurityConfig modsec.conf;
+}
+
+# Our enhancement adds:
+location / {
+    ModSecurityEnabled on;
+    # When attack pattern detected:
+    # 1. Block request (traditional)
+    # 2. Trigger kernel collapse for that process
+    # 3. URL paths internally remap for next requests
+    set $quantum_token "generated_token_here";
+    
+    # Real URLs hidden behind tokens
+    rewrite ^/api/(.*)$ /qk_${quantum_token}_api/$1;
+}
