@@ -1,0 +1,31 @@
+Deployment Checklist
+
+1. Test on Debian 11/12 (kernel 5.10+)
+2. Enable kernel features:
+   ```bash
+   echo 1 > /proc/sys/kernel/unprivileged_bpf_disabled
+   echo 1 > /proc/sys/kernel/kptr_restrict
+   ```
+3. Configure AppArmor/SELinux
+4. Set up monitoring dashboard (Prometheus + Grafana)
+5. Create backup/restore procedures
+6. Document attack response playbooks
+
+Testing Commands
+
+```bash
+# Test eBPF monitoring
+sudo quantum_kernel_daemon --test-ebpf
+
+# Generate test attack
+sudo quantum_kernel_daemon --simulate-attack port-scan
+
+# View current state
+sudo quantum_kernel_daemon --status
+
+# Force collapse (for testing)
+sudo quantum_kernel_daemon --trigger-collapse --pid 1234
+
+# Take manual snapshot
+sudo quantum_kernel_daemon --snapshot now
+```
