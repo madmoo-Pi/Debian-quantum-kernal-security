@@ -1,0 +1,20 @@
+# Cargo.toml
+[package]
+name = "quantum_kernel_security"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+libc = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tensorflow = "0.20"
+bcc = "0.18"  # eBPF Compiler Collection
+rand = "0.8"
+ring = "0.17"  # Cryptography
+tokio = { version = "1.0", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+anyhow = "1.0"
+thiserror = "1.0"
+dashmap = "5.0"
