@@ -1,0 +1,58 @@
+#!/bin/bash
+# install_quantum_kernel.sh
+set -e
+
+echo "[+] Installing Quantum Kernel Security for Debian"
+
+# Install dependencies
+apt-get update
+apt-get install -y \
+    build-essential \
+    clang \
+    llvm \
+    libelf-dev \
+    libbpfcc-dev \
+    libssl-dev \
+    pkg-config \
+    cmake \
+    python3-dev \
+    python3-pip \
+    linux-headers-$(uname -r)
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source $HOME/.cargo/env
+
+# Clone and build
+git clone https://github.com/your-org/quantum-kernel-security.git
+cd quantum-kernel-security
+
+# Build in release mode
+cargo build --release
+
+# Install kernel module
+make -C /lib/modules/$(uname -r)/build M=$(pwd)/kernel_module modules
+insmod quantum_kernel.ko
+
+# Install userland daemon
+cp target/release/quantum_kernel_daemon /usr/local/bin/
+cp config/quantum_kernel.toml /etc/
+cp systemd/quantum-kernel.service /etc/systemd/system/
+
+# Enable and start
+systemctl daemon-reload
+systemctl enable quantum-kernel
+systemctl start quantum-kernel
+
+# Configure AppArmor profile
+cp apparmor/quantum_kernel /etc/apparmor.d/
+apparmor_parser -r /etc/apparmor.d/quantum_kernel
+
+# Install eBPF components
+cd ebpf_programs
+make
+./load_programs.sh
+
+echo "[+] Installation complete!"
+echo "[+] Configuration: /etc/quantum_kernel.toml"
+echo "[+] Logs: journalctl -u quantum-kernel -f"
