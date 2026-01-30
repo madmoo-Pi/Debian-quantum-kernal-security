@@ -1,0 +1,36 @@
+# /etc/quantum_kernel.toml
+[general]
+mode = "active"  # active, monitoring, learning
+log_level = "info"
+snapshot_dir = "/var/lib/quantum_kernel/snapshots"
+
+[collapse]
+entropy_threshold = 0.85
+regeneration_delay_ms = 100
+max_collapses_per_hour = 10
+
+[ml]
+model_path = "/usr/share/quantum_kernel/models/anomaly_detector.pb"
+training_mode = false
+retrain_interval_hours = 24
+
+[memory]
+randomization_enabled = true
+regeneration_on_collapse = true
+max_layout_changes = 1000
+
+[crypto]
+key_rotation_hours = 24
+token_lifetime_minutes = 60
+revocation_list_path = "/var/lib/quantum_kernel/revoked.tokens"
+
+[ebpf]
+monitoring_enabled = true
+syscall_tracing = true
+network_monitoring = true
+performance_sampling_ms = 1000
+
+[processes]
+max_depth = 5
+min_resource_percent = 10.0
+auto_terminate_stale_seconds = 3600
