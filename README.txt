@@ -1,3 +1,6 @@
+🚨🚨🚨 concept only need verification 🚨🚨🚨
+
+
 🌀 Quantum Kernel Security - Anti-Hacking System
 
 What This Does (No Jargon)
