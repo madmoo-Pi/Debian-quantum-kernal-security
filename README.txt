@@ -3,6 +3,8 @@
 
 🌀 Quantum Kernel Security - Anti-Hacking System
 
+A kernal concept where the architecture makes hacking attempts impossible literally change the terrain under the attacker's feet - the kernel morphs into something different!
+
 What This Does (No Jargon)
 
 Imagine your computer is a castle. Hackers try to break in. This system changes the castle while they're breaking in.
@@ -74,7 +76,7 @@ The 5 Magic Parts
 
 ---
 
-The Pattern (For Your Brain)
+The Pattern 
 
 ```
 Attack detected → Freeze everything → Take photo → 
