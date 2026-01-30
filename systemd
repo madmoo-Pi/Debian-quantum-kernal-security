@@ -1,0 +1,17 @@
+[Unit]
+Description=Quantum Kernel Security Daemon
+After=network.target
+Requires=quantum-kernel-module.service
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/quantum_kernel_daemon --config /etc/quantum_kernel.toml
+Restart=always
+RestartSec=5
+LimitNOFILE=infinity
+LimitMEMLOCK=infinity
+CapabilityBoundingSet=CAP_SYS_ADMIN CAP_SYS_PTRACE CAP_SYS_RESOURCE CAP_NET_ADMIN
+AmbientCapabilities=CAP_SYS_ADMIN CAP_SYS_PTRACE
+
+[Install]
+WantedBy=multi-user.target
