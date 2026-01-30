@@ -1,5 +1,8 @@
 🚨🚨🚨 concept only need verification 🚨🚨🚨
 
+MIT License
+
+Copyright (c) 2026 madmoo-pi 
 
 🌀 Quantum Kernel Security - Anti-Hacking System
 
