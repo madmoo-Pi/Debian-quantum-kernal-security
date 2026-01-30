@@ -1,0 +1,17 @@
+# /etc/quantum_kernel/lamp.toml
+# For LAMP/LEMP Stack
+[web]
+process_names = ["apache2", "nginx", "php-fpm"]
+protect_paths = ["/var/www/html", "/etc/apache2", "/etc/nginx"]
+
+[database]
+process_names = ["mysqld", "mariadb", "postgres"]
+collapse_on_queries = [
+    "UNION SELECT",
+    "SLEEP(5)",
+    "LOAD_FILE"
+]
+
+[files]
+watch_directories = ["/tmp", "/var/www/uploads"]
+collapse_on_suspect_files = [".php.", ".htaccess", "wp-config"]
