@@ -1,0 +1,19 @@
+# For Docker/Kubernetes:
+
+
+# docker-compose.yml with quantum protection
+version: '3.8'
+services:
+  web:
+    image: nginx:latest
+    privileged: true  # Required for kernel access
+    cap_add:
+      - SYS_ADMIN
+      - SYS_PTRACE
+      - SYS_RESOURCE
+    volumes:
+      - /etc/quantum_kernel:/etc/quantum_kernel
+      - /usr/local/bin/quantum_kernel_daemon:/usr/bin/qk
+    command: >
+      sh -c "qk --attach-to-pid 1 &&
+             nginx -g 'daemon off;'"
